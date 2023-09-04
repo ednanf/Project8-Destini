@@ -23,20 +23,32 @@ class ViewController: UIViewController {
         Story(title: "You see a tiger.", choice1: "Shout for help", choice2: "Play dead"),
         Story(title: "You find a treasure chest.", choice1: "Open it", choice2: "Check for traps")
     ]
+    var storyStep = 0
     
     // MARK: Setup
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        storyLabel.text = stories[0].title
-        choice1Button.setTitle(stories[0].choice1, for: .normal)
-        choice2Button.setTitle(stories[0].choice2, for: .normal)
+        updateUI()
     }
     
     // MARK: IBActions
+    @IBAction func choiceMade(_ sender: UIButton) {
+        if sender == choice1Button {
+            storyStep += 1
+            updateUI()
+        } else {
+            storyStep += 2
+            updateUI()
+        }
+    }
     
     // MARK: Methods
-
+    func updateUI() {
+        storyLabel.text = stories[storyStep].title
+        choice1Button.setTitle(stories[storyStep].choice1, for: .normal)
+        choice2Button.setTitle(stories[storyStep].choice2, for: .normal)
+    }
 
 }
 
